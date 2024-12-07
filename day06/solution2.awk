@@ -1,15 +1,5 @@
 #!/usr/bin/env gawk -f
 
-function print_o() {
-    for (x = 1; x <= FNR; x++) {
-        for (y = 1; y <= NF; y++) {
-            printf "%s", o[x, y] == 1 ? "#" : ".";
-        }
-        print "";
-    }
-    print "";
-}
-
 function traverse_path() {
     xpos = xori;
     ypos = yori;
@@ -71,12 +61,10 @@ BEGIN {
 END {
     for (i = 1; i <= FNR; i++) {
         for (j = 1; j <= NF; j++) {
-            print i, j, o[i, j];
             if (o[i, j] == 1 || i == yori && j == xori) {
                 continue;
             }
             o[i, j] = 1;
-            #print_o();
             s += traverse_path();
             o[i, j] = 0;
         }
